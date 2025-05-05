@@ -1,0 +1,90 @@
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { Calculator, GitCompare, FileText, FileSearch, FileJson, KeyRound, Lock } from "lucide-react"
+
+export default function Home() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] w-full p-8 bg-gray-50">
+      <h1 className="text-3xl font-bold text-[#089455] mb-6">
+        Bem-vindo ao <span className="font-peralta text-4xl">DEV Tools</span>
+      </h1>
+      <p className="text-lg text-gray-600 mb-8 text-center max-w-2xl">
+        Utilize nossas ferramentas para análise e manipulação de texto.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full">
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <Calculator className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Contador de Caracteres</h2>
+          <p className="text-gray-600 mb-4">Conte caracteres, palavras e linhas em qualquer texto.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/contador">Acessar Contador</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <GitCompare className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Comparador de .env</h2>
+          <p className="text-gray-600 mb-4">Compare dois arquivos .env e identifique diferenças entre eles.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/comparador">Acessar Comparador</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <FileText className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Comparador de Textos</h2>
+          <p className="text-gray-600 mb-4">Compare dois textos e visualize as diferenças entre eles.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/comparador-textos">Acessar Comparador</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <FileSearch className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Localizar e Substituir</h2>
+          <p className="text-gray-600 mb-4">Encontre e substitua trechos específicos em qualquer texto.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/localizar-substituir">Acessar Ferramenta</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <FileJson className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">.env para JSON</h2>
+          <p className="text-gray-600 mb-4">Converta arquivos .env para o formato JSON.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/env-to-json">Acessar Conversor</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <FileJson className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">JSON para .env</h2>
+          <p className="text-gray-600 mb-4">Converta arquivos JSON para o formato .env.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/json-to-env">Acessar Conversor</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <KeyRound className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Hash de Senhas</h2>
+          <p className="text-gray-600 mb-4">Gere e verifique hashes de senhas com o algoritmo Apache MD5.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/hash-senha">Acessar Ferramenta</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <Lock className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Gerador de Senhas</h2>
+          <p className="text-gray-600 mb-4">Crie senhas fortes e seguras com diversos critérios.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/gerador-senha">Acessar Gerador</Link>
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
