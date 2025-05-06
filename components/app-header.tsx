@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Calculator, GitCompare, FileText, FileSearch, FileJson, KeyRound, Lock, Menu, X } from "lucide-react"
+import { Calculator, GitCompare, FileText, FileSearch, FileJson, KeyRound, Lock, Menu, X, Code } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export function AppHeader() {
@@ -22,6 +22,7 @@ export function AppHeader() {
     { name: "JSON para .env", path: "/json-to-env", icon: <FileJson className="h-4 w-4 mr-2" /> },
     { name: "Hash de Senhas", path: "/hash-senha", icon: <KeyRound className="h-4 w-4 mr-2" /> },
     { name: "Gerador de Senhas", path: "/gerador-senha", icon: <Lock className="h-4 w-4 mr-2" /> },
+    { name: "Comparador de JavaScript", path: "/comparador-javascript", icon: <Code className="h-4 w-4 mr-2" /> },
   ]
 
   // Encontrar o item de menu atual com base no pathname
