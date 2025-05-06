@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] w-full p-8 bg-gray-50">
       <h1 className="text-3xl font-bold text-[#089455] mb-6">
-        Bem-vindo ao <span className="font-peralta text-4xl">Develop Tools</span>
+        <span className="font-peralta text-4xl">Develop Tools</span>
       </h1>
       <p className="text-lg text-gray-600 mb-8 text-center max-w-2xl">
         Utilize nossas ferramentas para análise e manipulação de texto.
