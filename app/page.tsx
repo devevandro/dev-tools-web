@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Calculator, GitCompare, FileText, FileSearch, FileJson, KeyRound, Lock } from "lucide-react"
+import { Calculator, GitCompare, FileText, FileSearch, FileJson, KeyRound, Lock, Code } from "lucide-react"
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] w-full p-8 bg-gray-50">
       <h1 className="text-3xl font-bold text-[#089455] mb-6">
-        <span className="font-peralta text-4xl">Develop Tools</span>
+        Bem-vindo ao <span className="font-peralta text-4xl">DEV Tools</span>
       </h1>
       <p className="text-lg text-gray-600 mb-8 text-center max-w-2xl">
         Utilize nossas ferramentas para análise e manipulação de texto.
@@ -82,6 +82,15 @@ export default function Home() {
           <p className="text-gray-600 mb-4">Crie senhas fortes e seguras com diversos critérios.</p>
           <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
             <Link href="/gerador-senha">Acessar Gerador</Link>
+          </Button>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <Code className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Comparador de JavaScript</h2>
+          <p className="text-gray-600 mb-4">Compare códigos JavaScript e verifique se são equivalentes.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/comparador-javascript">Acessar Comparador</Link>
           </Button>
         </div>
       </div>
