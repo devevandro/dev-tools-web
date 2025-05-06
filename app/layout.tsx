@@ -14,7 +14,7 @@ const peralta = Peralta({
 })
 
 export const metadata: Metadata = {
-  title: "Tools APP",
+  title: "Develop Tools",
   description: "Ferramentas úteis para manipulação de texto",
     generator: 'v0.dev'
 }

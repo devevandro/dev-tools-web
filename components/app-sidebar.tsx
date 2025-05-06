@@ -20,7 +20,7 @@ export function AppSidebar() {
   return (
     <Sidebar className="border-r border-[#054f77]/20">
       <SidebarHeader className="bg-[#054f77] text-white p-4 flex justify-center">
-        <h1 className="text-2xl font-caveat text-center">Tools APP</h1>
+        <h1 className="text-2xl font-caveat text-center">Develop Tools</h1>
       </SidebarHeader>
       <SidebarContent className="bg-white">
         <SidebarMenu>
@@ -78,7 +78,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="bg-[#054f77] text-white p-2 text-xs text-center">© 2025 Tools APP</SidebarFooter>
+      <SidebarFooter className="bg-[#054f77] text-white p-2 text-xs text-center">© 2025 Develop Tools</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )
