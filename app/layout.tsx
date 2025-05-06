@@ -8,7 +8,10 @@ import { AppFooter } from "@/components/app-footer"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const arvo = Arvo({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-arvo" })
-const peralta = Peralta({ subsets: ["latin"], variable: "--font-peralta" })
+const peralta = Peralta({
+  subsets: ["latin"], variable: "--font-peralta",
+  weight: "400"
+})
 
 export const metadata: Metadata = {
   title: "Tools APP",
