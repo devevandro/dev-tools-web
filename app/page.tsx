@@ -93,6 +93,15 @@ export default function Home() {
             <Link href="/comparador-javascript">Acessar Comparador</Link>
           </Button>
         </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center text-center h-full">
+          <Database className="h-12 w-12 text-[#089455] mb-4" />
+          <h2 className="text-xl font-semibold text-[#089455] mb-2">Extrator de IDs MongoDB</h2>
+          <p className="text-gray-600 mb-4">Extraia IDs de uma coleção MongoDB para uso em consultas.</p>
+          <Button asChild className="bg-[#089455] hover:bg-[#089455]/90 mt-auto">
+            <Link href="/mongo-ids">Acessar Extrator</Link>
+          </Button>
+        </div>
       </div>
     </div>
   )
