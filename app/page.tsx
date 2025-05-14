@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Calculator, GitCompare, FileText, FileSearch, FileJson, KeyRound, Lock, Code } from "lucide-react"
+import { Calculator, GitCompare, FileText, FileSearch, FileJson, KeyRound, Lock, Code, Database } from "lucide-react"
 
 export default function Home() {
   return (
