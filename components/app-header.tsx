@@ -17,6 +17,8 @@ import {
   Code,
   Database,
   Braces,
+  CreditCard,
+  Building2,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
@@ -38,6 +40,8 @@ export function AppHeader() {
     { name: "Comparador de JavaScript", path: "/comparador-javascript", icon: <Code className="h-4 w-4 mr-2" /> },
     { name: "Extrator de IDs MongoDB", path: "/mongo-ids", icon: <Database className="h-4 w-4 mr-2" /> },
     { name: "Formatador de JSON", path: "/json-formatter", icon: <Braces className="h-4 w-4 mr-2" /> },
+    { name: "Gerador de CPF", path: "/gerador-cpf", icon: <CreditCard className="h-4 w-4 mr-2" /> },
+    { name: "Gerador de CNPJ", path: "/gerador-cnpj", icon: <Building2 className="h-4 w-4 mr-2" /> },
   ]
 
   // Encontrar o item de menu atual com base no pathname
