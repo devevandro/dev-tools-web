@@ -16,7 +16,7 @@ const peralta = Peralta({
 export const metadata: Metadata = {
   title: "Develop Tools",
   description: "Ferramentas úteis para manipulação de texto",
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -29,7 +29,6 @@ export default function RootLayout({
       <body className={`${inter.variable} ${arvo.variable} ${peralta.variable} font-arvo`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <div className="flex flex-col min-h-screen">
-            <AppHeader />
             <main className="flex-1 w-full">{children}</main>
             <AppFooter />
           </div>
