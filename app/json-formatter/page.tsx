@@ -65,17 +65,16 @@ const exampleData = `{
   "type": "student-enrollment",
   "body": {
     "user": {
-      "firstName": "Andre",
-      "lastName": "Pierobon",
-      "email": "andre.pierobon@startse.com"
+      "firstName": "Jon",
+      "lastName": "Doe",
+      "email": "jon.doe@email.com"
     },
     "course": {
-      "slug": "ai-for-leaders-2a-edicao-2025",
+      "slug": "",
       "sendEmail": true,
       "sendAccessEmail": true,
-      "typeEnrollment": "61365edd1233b17afeb26671",
+      "typeEnrollment": "61786ppl1233b17afeb26908",
       "forceEnrollment": false,
-      "expiresAt": "2025-11-16 23:59"
     }
   }
 }`
