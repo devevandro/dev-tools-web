@@ -62,21 +62,7 @@ export function AppHeader() {
       <div className="container flex h-16 items-center justify-center relative">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center justify-center space-x-4">
-          {/* Home page - show all tool buttons */}
-          {isHome && (
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {menuItems.slice(1).map((item) => (
-                <Button key={item.path} variant="ghost" size="sm" asChild>
-                  <Link href={item.path}>
-                    {item.icon}
-                    <span className="hidden lg:inline ml-1">{item.name.split(" ")[0]}</span>
-                  </Link>
-                </Button>
-              ))}
-            </div>
-          )}
-
-          {/* Tool pages - show only current tool and tools dropdown */}
+          {/* Na página inicial, não mostramos nenhum menu */}
           {!isHome && (
             <div className="flex items-center space-x-4">
               {/* Home link */}
@@ -115,17 +101,19 @@ export function AppHeader() {
           )}
         </nav>
 
-        {/* Mobile Menu Button */}
-        <div className="flex md:hidden absolute right-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Menu"
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
+        {/* Mobile Menu Button - Mostrar apenas em páginas que não são a inicial ou quando o menu está aberto */}
+        {(!isHome || mobileMenuOpen) && (
+          <div className="flex md:hidden absolute right-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Mobile Navigation */}
