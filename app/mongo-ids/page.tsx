@@ -15,6 +15,7 @@ export default function MongoIdsPage() {
   const [outputFormat, setOutputFormat] = useState<"array" | "comma" | "quotes">("array")
   const [extractedIds, setExtractedIds] = useState<string[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [pathInfo, setPathInfo] = useState<Record<string, number>>({})
   const [includeQuotes, setIncludeQuotes] = useState(true)
   const [copied, setCopied] = useState(false)
   const [processed, setProcessed] = useState(false)
@@ -36,25 +37,66 @@ export default function MongoIdsPage() {
         return
       }
 
-      // Extrair os IDs
-      const ids = documents
-        .map((doc) => {
-          if (doc && doc._id && doc._id.$oid) {
-            return doc._id.$oid
-          } else if (doc && doc._id) {
-            // Caso o ID não esteja no formato $oid
-            return String(doc._id)
-          }
-          return null
-        })
-        .filter((id) => id !== null) as string[]
+      // Função recursiva para encontrar objetos com $oid em qualquer nível
+      const findOidValues = (obj: any, path: string[] = []): { id: string; path: string[] }[] => {
+        if (!obj || typeof obj !== "object") return []
 
-      if (ids.length === 0) {
-        setError("Nenhum ID válido encontrado na coleção")
+        let results: { id: string; path: string[] }[] = []
+
+        for (const key in obj) {
+          const currentPath = [...path, key]
+
+          if (key === "$oid" && typeof obj[key] === "string") {
+            // Encontramos um $oid diretamente
+            return [{ id: obj[key], path }]
+          } else if (typeof obj[key] === "object" && obj[key] !== null) {
+            // Se for um objeto, procurar recursivamente
+            const nestedResults = findOidValues(obj[key], currentPath)
+            results = [...results, ...nestedResults]
+          }
+        }
+
+        return results
+      }
+
+      // Extrair os IDs de cada documento
+      const idsWithPaths = documents.flatMap((doc, index) => {
+        const results = findOidValues(doc)
+        return results.map((result) => ({
+          ...result,
+          docIndex: index,
+        }))
+      })
+
+      if (idsWithPaths.length === 0) {
+        setError("Nenhum ID válido (formato $oid) encontrado na coleção")
         return
       }
 
+      // Extrair apenas os IDs
+      const ids = idsWithPaths.map((item) => item.id)
+
+      // Armazenar informações sobre os caminhos para exibição
+      const pathInfo = idsWithPaths.reduce(
+        (acc, { id, path, docIndex }) => {
+          const fieldName =
+            path[path.length - 1] === "$oid"
+              ? path.length > 1
+                ? path[path.length - 2]
+                : "desconhecido"
+              : path[path.length - 1]
+
+          if (!acc[fieldName]) {
+            acc[fieldName] = 0
+          }
+          acc[fieldName]++
+          return acc
+        },
+        {} as Record<string, number>,
+      )
+
       setExtractedIds(ids)
+      setPathInfo(pathInfo)
       setProcessed(true)
     } catch (err) {
       setError(`Erro ao processar JSON: ${err instanceof Error ? err.message : String(err)}`)
@@ -99,17 +141,12 @@ export default function MongoIdsPage() {
     "_id": {
       "$oid": "62b34e81c00fe024bef3ec69"
     },
-    "version": "4.3.1",
-    "lastVersion": false,
-    "forceUpdate": true
+    "version": "4.3.1"
   },
   {
-    "_id": {
-      "$oid": "62b34e9ac00fe024bef3ec6a"
-    },
-    "version": "4.3.2",
-    "lastVersion": true,
-    "forceUpdate": false
+    "student": {
+      "$oid": "5e337ef699763dac88d2c9ed"
+    }
   }
 ]`
 
@@ -122,7 +159,9 @@ export default function MongoIdsPage() {
           <Card className="w-full">
             <CardHeader>
               <CardTitle>Coleção MongoDB</CardTitle>
-              <CardDescription>Cole o JSON da sua coleção MongoDB</CardDescription>
+              <CardDescription>
+                Cole o JSON da sua coleção MongoDB (suporta IDs em qualquer campo com formato $oid)
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Textarea
@@ -213,9 +252,27 @@ export default function MongoIdsPage() {
               <div className="flex items-center gap-2 text-sm">
                 <Database className="h-4 w-4 text-[#089455]" />
                 <span>
-                  Total de documentos na coleção: <strong>{extractedIds.length}</strong>
+                  Total de IDs extraídos: <strong>{extractedIds.length}</strong>
                 </span>
               </div>
+
+              {Object.keys(pathInfo).length > 0 && (
+                <div className="mt-3 text-sm">
+                  <div className="font-medium mb-1">Campos encontrados:</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {Object.entries(pathInfo).map(([field, count]) => (
+                      <div key={field} className="flex items-center gap-1">
+                        <span className="bg-[#089455]/10 text-[#089455] px-2 py-1 rounded text-xs font-mono">
+                          {field}
+                        </span>
+                        <span className="text-gray-600">
+                          {count} {count === 1 ? "ocorrência" : "ocorrências"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="mt-4 bg-gray-100 p-4 rounded-md">
                 <div className="font-medium mb-2 flex items-center gap-2">

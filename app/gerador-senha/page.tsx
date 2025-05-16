@@ -20,6 +20,8 @@ export default function GeradorSenhaPage() {
   const [includeSymbols, setIncludeSymbols] = useState(true)
   const [copied, setCopied] = useState(false)
   const [passwordStrength, setPasswordStrength] = useState<"fraca" | "média" | "forte" | "muito forte">("forte")
+  const [showLengthIndicator, setShowLengthIndicator] = useState(false)
+  const indicatorTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Gerar senha quando as opções mudarem
   useEffect(() => {
@@ -30,6 +32,30 @@ export default function GeradorSenhaPage() {
   useEffect(() => {
     evaluatePasswordStrength()
   }, [password])
+
+  // Limpar o timeout quando o componente for desmontado
+  useEffect(() => {
+    return () => {
+      if (indicatorTimeoutRef.current) {
+        clearTimeout(indicatorTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleSliderInteraction = () => {
+    // Mostrar o indicador
+    setShowLengthIndicator(true)
+
+    // Limpar qualquer timeout existente
+    if (indicatorTimeoutRef.current) {
+      clearTimeout(indicatorTimeoutRef.current)
+    }
+
+    // Configurar um novo timeout para esconder o indicador após 2 segundos
+    indicatorTimeoutRef.current = setTimeout(() => {
+      setShowLengthIndicator(false)
+    }, 2000)
+  }
 
   const generatePassword = () => {
     let charset = ""
@@ -183,15 +209,30 @@ export default function GeradorSenhaPage() {
               <div className="flex justify-between">
                 <Label htmlFor="length">Comprimento: {length} caracteres</Label>
               </div>
-              <Slider
-                id="length"
-                min={8}
-                max={32}
-                step={1}
-                value={[length]}
-                onValueChange={(value) => setLength(value[0])}
-                className="[&>span]:bg-[#089455]"
-              />
+              <div className="relative mt-6 mb-8">
+                {showLengthIndicator && (
+                  <div
+                    className="absolute -top-7 bg-[#089455] text-white px-2 py-1 rounded-md text-xs font-medium transform -translate-x-1/2 transition-all opacity-100 scale-100"
+                    style={{ left: `${((length - 8) / (32 - 8)) * 100}%` }}
+                  >
+                    {length}
+                  </div>
+                )}
+                <Slider
+                  id="length"
+                  min={8}
+                  max={32}
+                  step={1}
+                  value={[length]}
+                  onValueChange={(value) => {
+                    setLength(value[0])
+                    handleSliderInteraction()
+                  }}
+                  onMouseDown={handleSliderInteraction}
+                  onTouchStart={handleSliderInteraction}
+                  className="[&>span]:bg-[#089455] cursor-pointer"
+                />
+              </div>
               <Alert className="bg-[#089455]/10 border-[#089455]/20">
                 <AlertDescription>
                   Recomendamos senhas com pelo menos 12 caracteres para maior segurança.
