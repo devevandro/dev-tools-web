@@ -19,6 +19,8 @@ import {
   Braces,
   CreditCard,
   Building2,
+  Terminal,
+  Pipette,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
@@ -37,11 +39,13 @@ export function AppHeader() {
     { name: "JSON para .env", path: "/json-to-env", icon: <FileJson className="h-4 w-4 mr-2" /> },
     { name: "Hash de Senhas", path: "/hash-senha", icon: <KeyRound className="h-4 w-4 mr-2" /> },
     { name: "Gerador de Senhas", path: "/gerador-senha", icon: <Lock className="h-4 w-4 mr-2" /> },
+    { name: "Senhas OpenSSL", path: "/openssl-senha", icon: <Terminal className="h-4 w-4 mr-2" /> },
     { name: "Comparador de JavaScript", path: "/comparador-javascript", icon: <Code className="h-4 w-4 mr-2" /> },
     { name: "Extrator de IDs MongoDB", path: "/mongo-ids", icon: <Database className="h-4 w-4 mr-2" /> },
     { name: "Formatador de JSON", path: "/json-formatter", icon: <Braces className="h-4 w-4 mr-2" /> },
     { name: "Gerador de CPF", path: "/gerador-cpf", icon: <CreditCard className="h-4 w-4 mr-2" /> },
     { name: "Gerador de CNPJ", path: "/gerador-cnpj", icon: <Building2 className="h-4 w-4 mr-2" /> },
+    { name: "Coletor de Cores", path: "/coletor-cores", icon: <Pipette className="h-4 w-4 mr-2" /> },
   ]
 
   // Encontrar o item de menu atual com base no pathname
