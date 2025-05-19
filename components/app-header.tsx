@@ -21,6 +21,7 @@ import {
   Building2,
   Terminal,
   Pipette,
+  CheckCircle,
 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
@@ -46,6 +47,7 @@ export function AppHeader() {
     { name: "Gerador de CPF", path: "/gerador-cpf", icon: <CreditCard className="h-4 w-4 mr-2" /> },
     { name: "Gerador de CNPJ", path: "/gerador-cnpj", icon: <Building2 className="h-4 w-4 mr-2" /> },
     { name: "Coletor de Cores", path: "/coletor-cores", icon: <Pipette className="h-4 w-4 mr-2" /> },
+    { name: "Validador CPF/CNPJ", path: "/validador-cpf-cnpj", icon: <CheckCircle className="h-4 w-4 mr-2" /> },
   ]
 
   // Encontrar o item de menu atual com base no pathname
@@ -62,7 +64,7 @@ export function AppHeader() {
   )
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-center relative">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center justify-center space-x-4">

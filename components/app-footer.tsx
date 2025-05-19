@@ -4,7 +4,7 @@ export function AppFooter() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="w-full border-t py-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <footer className="fixed bottom-0 left-0 right-0 z-50 border-t py-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex flex-col sm:flex-row items-center justify-between">
         <div className="flex items-center mb-2 sm:mb-0">
           <span className="font-peralta text-xl text-[#089455] mr-2">{appConfig.name}</span>
