@@ -12,7 +12,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function MongoIdsPage() {
   const [inputJson, setInputJson] = useState("")
-  const [outputFormat, setOutputFormat] = useState<"array" | "comma" | "quotes">("array")
+  const [outputFormat, setOutputFormat] = useState<"array" | "comma" | "quotes" | "objectId">("array")
   const [extractedIds, setExtractedIds] = useState<string[]>([])
   const [error, setError] = useState<string | null>(null)
   const [pathInfo, setPathInfo] = useState<Record<string, number>>({})
@@ -116,6 +116,8 @@ export default function MongoIdsPage() {
         return formattedIds.join(", ")
       case "quotes":
         return formattedIds.join("\n")
+      case "objectId":
+        return `[\n  ${extractedIds.map((id) => `ObjectId('${id}')`).join(",\n  ")}\n]`
       default:
         return `[\n  ${formattedIds.join(",\n  ")}\n]`
     }
@@ -201,10 +203,11 @@ export default function MongoIdsPage() {
               ) : (
                 <>
                   <Tabs value={outputFormat} onValueChange={(v) => setOutputFormat(v as any)} className="mb-4">
-                    <TabsList className="grid w-full grid-cols-3">
+                    <TabsList className="grid w-full grid-cols-4">
                       <TabsTrigger value="array">Array</TabsTrigger>
                       <TabsTrigger value="comma">Separado por vírgula</TabsTrigger>
                       <TabsTrigger value="quotes">Um por linha</TabsTrigger>
+                      <TabsTrigger value="objectId">ObjectId</TabsTrigger>
                     </TabsList>
                   </Tabs>
 
