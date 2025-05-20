@@ -13,7 +13,6 @@ import {
   Building2,
   Terminal,
   Pipette,
-  CheckCircle,
   Ticket,
 } from "lucide-react"
 import type { Tool } from "@/lib/types"
@@ -123,13 +122,6 @@ export const tools: Tool[] = [
     path: "/coletor-cores",
     icon: <Pipette className="h-4 w-4 mr-2" />,
     description: "Capture e analise cores de imagens ou crie sua própria paleta.",
-  },
-  {
-    id: "validador-cpf-cnpj",
-    name: "Validador CPF/CNPJ",
-    path: "/validador-cpf-cnpj",
-    icon: <CheckCircle className="h-4 w-4 mr-2" />,
-    description: "Verifique se um CPF ou CNPJ é válido de acordo com os algoritmos oficiais.",
   },
   {
     id: "gerador-jira",
