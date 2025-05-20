@@ -205,8 +205,8 @@ export default function MongoIdsPage() {
                   <Tabs value={outputFormat} onValueChange={(v) => setOutputFormat(v as any)} className="mb-4">
                     <TabsList className="grid w-full grid-cols-4">
                       <TabsTrigger value="array">Array</TabsTrigger>
-                      <TabsTrigger value="comma">Separado por vírgula</TabsTrigger>
-                      <TabsTrigger value="quotes">Um por linha</TabsTrigger>
+                      <TabsTrigger value="comma">Por vírgula</TabsTrigger>
+                      <TabsTrigger value="quotes">Por linha</TabsTrigger>
                       <TabsTrigger value="objectId">ObjectId</TabsTrigger>
                     </TabsList>
                   </Tabs>
