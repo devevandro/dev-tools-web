@@ -1,145 +1,128 @@
-import {
-  Calculator,
-  GitCompare,
-  FileText,
-  FileSearch,
-  FileJson,
-  KeyRound,
-  Lock,
-  Code,
-  Database,
-  Braces,
-  CreditCard,
-  Building2,
-  Terminal,
-  Pipette,
-  CheckCircle,
-  Ticket,
-} from "lucide-react"
-import type { Tool } from "@/lib/types"
+"use client"
 
-export const tools: Tool[] = [
-  {
-    id: "contador",
-    name: "Contador de Caracteres",
-    path: "/contador",
-    icon: <Calculator className="h-4 w-4 mr-2" />,
-    description: "Conte caracteres, palavras e linhas em qualquer texto.",
-  },
-  {
-    id: "comparador",
-    name: "Comparador de .env",
-    path: "/comparador",
-    icon: <GitCompare className="h-4 w-4 mr-2" />,
-    description: "Compare dois arquivos .env e identifique diferenças entre eles.",
-  },
-  {
-    id: "comparador-textos",
-    name: "Comparador de Textos",
-    path: "/comparador-textos",
-    icon: <FileText className="h-4 w-4 mr-2" />,
-    description: "Compare dois textos e visualize as diferenças entre eles.",
-  },
-  {
-    id: "localizar-substituir",
-    name: "Localizar e Substituir",
-    path: "/localizar-substituir",
-    icon: <FileSearch className="h-4 w-4 mr-2" />,
-    description: "Encontre e substitua trechos específicos em qualquer texto.",
-  },
-  {
-    id: "env-to-json",
-    name: ".env para JSON",
-    path: "/env-to-json",
-    icon: <FileJson className="h-4 w-4 mr-2" />,
-    description: "Converta arquivos .env para o formato JSON.",
-  },
-  {
-    id: "json-to-env",
-    name: "JSON para .env",
-    path: "/json-to-env",
-    icon: <FileJson className="h-4 w-4 mr-2" />,
-    description: "Converta arquivos JSON para o formato .env.",
-  },
-  {
-    id: "hash-senha",
-    name: "Hash de Senhas",
-    path: "/hash-senha",
-    icon: <KeyRound className="h-4 w-4 mr-2" />,
-    description: "Gere e verifique hashes de senhas com o algoritmo Apache MD5.",
-  },
-  {
-    id: "gerador-senha",
-    name: "Gerador de Senhas",
-    path: "/gerador-senha",
-    icon: <Lock className="h-4 w-4 mr-2" />,
-    description: "Crie senhas fortes e seguras com diversos critérios.",
-  },
-  {
-    id: "openssl-senha",
-    name: "Senhas OpenSSL",
-    path: "/openssl-senha",
-    icon: <Terminal className="h-4 w-4 mr-2" />,
-    description: "Gere senhas seguras usando o método OpenSSL.",
-  },
-  {
-    id: "comparador-javascript",
-    name: "Comparador de JavaScript",
-    path: "/comparador-javascript",
-    icon: <Code className="h-4 w-4 mr-2" />,
-    description: "Compare códigos JavaScript e verifique se são equivalentes.",
-  },
-  {
-    id: "mongo-ids",
-    name: "Extrator de IDs MongoDB",
-    path: "/mongo-ids",
-    icon: <Database className="h-4 w-4 mr-2" />,
-    description: "Extraia IDs de uma coleção MongoDB para uso em consultas.",
-  },
-  {
-    id: "json-formatter",
-    name: "Formatador de JSON",
-    path: "/json-formatter",
-    icon: <Braces className="h-4 w-4 mr-2" />,
-    description: "Formate e visualize JSON com syntax highlighting.",
-  },
-  {
-    id: "gerador-cpf",
-    name: "Gerador de CPF",
-    path: "/gerador-cpf",
-    icon: <CreditCard className="h-4 w-4 mr-2" />,
-    description: "Gere números de CPF válidos para testes e desenvolvimento.",
-  },
-  {
-    id: "gerador-cnpj",
-    name: "Gerador de CNPJ",
-    path: "/gerador-cnpj",
-    icon: <Building2 className="h-4 w-4 mr-2" />,
-    description: "Gere números de CNPJ válidos para testes e desenvolvimento.",
-  },
-  {
-    id: "coletor-cores",
-    name: "Coletor de Cores",
-    path: "/coletor-cores",
-    icon: <Pipette className="h-4 w-4 mr-2" />,
-    description: "Capture e analise cores de imagens ou crie sua própria paleta.",
-  },
-  {
-    id: "validador-cpf-cnpj",
-    name: "Validador CPF/CNPJ",
-    path: "/validador-cpf-cnpj",
-    icon: <CheckCircle className="h-4 w-4 mr-2" />,
-    description: "Verifique se um CPF ou CNPJ é válido de acordo com os algoritmos oficiais.",
-  },
-  {
-    id: "gerador-jira",
-    name: "Gerador de Links Jira",
-    path: "/gerador-jira",
-    icon: <Ticket className="h-4 w-4 mr-2" />,
-    description: "Gere links formatados para tickets do Jira em formato Markdown.",
-  },
-]
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Copy, ExternalLink, Check } from "lucide-react"
 
-export function getToolById(id: string): Tool | undefined {
-  return tools.find((tool) => tool.id === id)
+export default function GeradorJira() {
+  const [ticketNumber, setTicketNumber] = useState("")
+  const [prefix, setPrefix] = useState("APE")
+  const [generatedLink, setGeneratedLink] = useState("")
+  const [copied, setCopied] = useState(false)
+  const [isValid, setIsValid] = useState(false)
+
+  // Validate ticket number (only numbers)
+  useEffect(() => {
+    setIsValid(!!ticketNumber && /^\d+$/.test(ticketNumber))
+  }, [ticketNumber])
+
+  // Generate link when ticket number or prefix changes
+  useEffect(() => {
+    if (isValid) {
+      const ticketId = `${prefix}-${ticketNumber}`
+      const url = `https://startse.atlassian.net/browse/${ticketId}`
+      setGeneratedLink(`[${ticketId}](${url})`)
+    } else {
+      setGeneratedLink("")
+    }
+  }, [ticketNumber, prefix, isValid])
+
+  // Copy to clipboard
+  const copyToClipboard = () => {
+    if (generatedLink) {
+      navigator.clipboard.writeText(generatedLink)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
+  // Open link in new tab
+  const openLink = () => {
+    if (isValid) {
+      const ticketId = `${prefix}-${ticketNumber}`
+      const url = `https://startse.atlassian.net/browse/${ticketId}`
+      window.open(url, "_blank")
+    }
+  }
+
+  return (
+    <div className="container mx-auto py-10 max-w-3xl">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-[#089455]">Gerador de Links Jira</CardTitle>
+          <CardDescription>
+            Gere links formatados para tickets do Jira em formato Markdown para usar em documentações e PRs.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Prefix Selection */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Prefixo do Projeto</label>
+            <Tabs defaultValue="APE" value={prefix} onValueChange={setPrefix}>
+              <TabsList className="grid grid-cols-4 w-full">
+                <TabsTrigger value="APE">APE</TabsTrigger>
+                <TabsTrigger value="CX">CX</TabsTrigger>
+                <TabsTrigger value="APP">APP</TabsTrigger>
+                <TabsTrigger value="BO">BO</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Ticket Number Input */}
+          <div className="space-y-2">
+            <label htmlFor="ticketNumber" className="text-sm font-medium">
+              Número do Ticket
+            </label>
+            <Input
+              id="ticketNumber"
+              type="text"
+              placeholder="Ex: 1719"
+              value={ticketNumber}
+              onChange={(e) => setTicketNumber(e.target.value)}
+              className={!ticketNumber || isValid ? "" : "border-red-500"}
+            />
+            {ticketNumber && !isValid && <p className="text-red-500 text-sm">Por favor, insira apenas números.</p>}
+          </div>
+
+          {/* Generated Link */}
+          {generatedLink && (
+            <div className="space-y-4 pt-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Link Gerado (Markdown)</label>
+                <div className="bg-gray-100 p-3 rounded-md font-mono text-sm break-all">{generatedLink}</div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Visualização</label>
+                <div className="bg-gray-100 p-3 rounded-md">
+                  <a
+                    href={`https://startse.atlassian.net/browse/${prefix}-${ticketNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    {`${prefix}-${ticketNumber}`}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex space-x-2 pt-2">
+                <Button onClick={copyToClipboard} className="bg-[#089455] hover:bg-[#089455]/90">
+                  {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
+                  {copied ? "Copiado!" : "Copiar"}
+                </Button>
+                <Button onClick={openLink} variant="outline" className="border-[#089455] text-[#089455]">
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Abrir Link
+                </Button>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  )
 }
