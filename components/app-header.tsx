@@ -4,49 +4,17 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import {
-  Calculator,
-  GitCompare,
-  FileText,
-  FileSearch,
-  FileJson,
-  KeyRound,
-  Lock,
-  Menu,
-  X,
-  Code,
-  Database,
-  Braces,
-  CreditCard,
-  Building2,
-  Terminal,
-  Pipette,
-} from "lucide-react"
+import { Menu, X, FileText } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { tools } from "@/lib/tools"
 
 export function AppHeader() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isHome = pathname === "/"
 
-  const menuItems = [
-    { name: "Início", path: "/", icon: <FileText className="h-4 w-4 mr-2" /> },
-    { name: "Contador de Caracteres", path: "/contador", icon: <Calculator className="h-4 w-4 mr-2" /> },
-    { name: "Comparador de .env", path: "/comparador", icon: <GitCompare className="h-4 w-4 mr-2" /> },
-    { name: "Comparador de Textos", path: "/comparador-textos", icon: <FileText className="h-4 w-4 mr-2" /> },
-    { name: "Localizar e Substituir", path: "/localizar-substituir", icon: <FileSearch className="h-4 w-4 mr-2" /> },
-    { name: ".env para JSON", path: "/env-to-json", icon: <FileJson className="h-4 w-4 mr-2" /> },
-    { name: "JSON para .env", path: "/json-to-env", icon: <FileJson className="h-4 w-4 mr-2" /> },
-    { name: "Hash de Senhas", path: "/hash-senha", icon: <KeyRound className="h-4 w-4 mr-2" /> },
-    { name: "Gerador de Senhas", path: "/gerador-senha", icon: <Lock className="h-4 w-4 mr-2" /> },
-    { name: "Senhas OpenSSL", path: "/openssl-senha", icon: <Terminal className="h-4 w-4 mr-2" /> },
-    { name: "Comparador de JavaScript", path: "/comparador-javascript", icon: <Code className="h-4 w-4 mr-2" /> },
-    { name: "Extrator de IDs MongoDB", path: "/mongo-ids", icon: <Database className="h-4 w-4 mr-2" /> },
-    { name: "Formatador de JSON", path: "/json-formatter", icon: <Braces className="h-4 w-4 mr-2" /> },
-    { name: "Gerador de CPF", path: "/gerador-cpf", icon: <CreditCard className="h-4 w-4 mr-2" /> },
-    { name: "Gerador de CNPJ", path: "/gerador-cnpj", icon: <Building2 className="h-4 w-4 mr-2" /> },
-    { name: "Coletor de Cores", path: "/coletor-cores", icon: <Pipette className="h-4 w-4 mr-2" /> },
-  ]
+  // Adicionar o item de início ao menu
+  const menuItems = [{ id: "home", name: "Início", path: "/", icon: <FileText className="h-4 w-4 mr-2" /> }, ...tools]
 
   // Encontrar o item de menu atual com base no pathname
   const currentMenuItem = isHome ? null : menuItems.find((item) => item.path === pathname)
@@ -85,14 +53,16 @@ export function AppHeader() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="center" className="w-56">
-                  {menuItems.slice(1).map((item) => (
-                    <DropdownMenuItem key={item.path} asChild>
+                  {tools.map((item) => (
+                    <DropdownMenuItem key={item.id} asChild>
                       <Link
                         href={item.path}
                         className={`flex items-center w-full ${pathname === item.path ? "font-medium text-[#089455]" : ""}`}
                       >
-                        {item.icon}
-                        {item.name}
+                        <div className="flex-1 flex items-center">
+                          {item.icon}
+                          {item.name}
+                        </div>
                       </Link>
                     </DropdownMenuItem>
                   ))}
@@ -100,7 +70,9 @@ export function AppHeader() {
               </DropdownMenu>
 
               {/* Current tool button */}
-              {currentMenuItem && renderToolButton(currentMenuItem)}
+              {currentMenuItem && currentMenuItem.id !== "home" && (
+                <div className="flex items-center space-x-2">{renderToolButton(currentMenuItem)}</div>
+              )}
             </div>
           )}
         </nav>
@@ -126,18 +98,19 @@ export function AppHeader() {
           <div className="container py-2">
             <nav className="grid gap-1">
               {menuItems.map((item) => (
-                <Button
-                  key={item.path}
-                  variant={pathname === item.path ? "default" : "ghost"}
-                  className={`justify-start ${pathname === item.path ? "bg-[#089455] hover:bg-[#089455]/90" : ""}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  asChild
-                >
-                  <Link href={item.path} className="flex items-center">
-                    {item.icon}
-                    {item.name}
-                  </Link>
-                </Button>
+                <div key={item.id} className="flex items-center">
+                  <Button
+                    variant={pathname === item.path ? "default" : "ghost"}
+                    className={`justify-start flex-1 ${pathname === item.path ? "bg-[#089455] hover:bg-[#089455]/90" : ""}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    asChild
+                  >
+                    <Link href={item.path} className="flex items-center">
+                      {item.icon}
+                      {item.name}
+                    </Link>
+                  </Button>
+                </div>
               ))}
             </nav>
           </div>
