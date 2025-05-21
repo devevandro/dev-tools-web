@@ -14,6 +14,7 @@ import {
   Terminal,
   Pipette,
   Ticket,
+  Clock,
 } from "lucide-react"
 import type { Tool } from "@/lib/types"
 
@@ -129,6 +130,13 @@ export const tools: Tool[] = [
     path: "/gerador-jira",
     icon: <Ticket className="h-4 w-4 mr-2" />,
     description: "Gere links formatados para tickets do Jira em formato Markdown.",
+  },
+  {
+    id: "timestamp-converter",
+    name: "Conversor de Timestamp",
+    path: "/timestamp-converter",
+    icon: <Clock className="h-4 w-4 mr-2" />,
+    description: "Converta timestamps Unix para datas legíveis e veja quando expiram.",
   },
 ]
 
