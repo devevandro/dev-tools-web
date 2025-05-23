@@ -15,6 +15,7 @@ import {
   Pipette,
   Ticket,
   Clock,
+  FileCode,
 } from "lucide-react"
 import type { Tool } from "@/lib/types"
 
@@ -137,6 +138,13 @@ export const tools: Tool[] = [
     path: "/timestamp-converter",
     icon: <Clock className="h-4 w-4 mr-2" />,
     description: "Converta timestamps Unix para datas legíveis e veja quando expiram.",
+  },
+  {
+    id: "remover-comentarios",
+    name: "Remover Comentários JS",
+    path: "/remover-comentarios",
+    icon: <FileCode className="h-4 w-4 mr-2" />,
+    description: "Remova todos os comentários de código JavaScript.",
   },
 ]
 
