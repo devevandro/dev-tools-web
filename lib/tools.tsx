@@ -12,10 +12,10 @@ import {
   CreditCard,
   Building2,
   Terminal,
-  Pipette,
   Ticket,
   Clock,
   FileCode,
+  FileType,
 } from "lucide-react"
 import type { Tool } from "@/lib/types"
 
@@ -119,11 +119,11 @@ export const tools: Tool[] = [
     description: "Gere números de CNPJ válidos para testes e desenvolvimento.",
   },
   {
-    id: "coletor-cores",
-    name: "Coletor de Cores",
-    path: "/coletor-cores",
-    icon: <Pipette className="h-4 w-4 mr-2" />,
-    description: "Capture e analise cores de imagens ou crie sua própria paleta.",
+    id: "formatador-yaml",
+    name: "Formatador de YAML",
+    path: "/formatador-yaml",
+    icon: <FileType className="h-4 w-4 mr-2" />,
+    description: "Formate e valide arquivos YAML/YML com syntax highlighting.",
   },
   {
     id: "gerador-jira",
