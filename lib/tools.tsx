@@ -16,6 +16,7 @@ import {
   Clock,
   FileCode,
   FileType,
+  Calendar,
 } from "lucide-react"
 import type { Tool } from "@/lib/types"
 
