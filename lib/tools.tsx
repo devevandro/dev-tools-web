@@ -146,6 +146,13 @@ export const tools: Tool[] = [
     icon: <FileCode className="h-4 w-4 mr-2" />,
     description: "Remova todos os comentários de código JavaScript.",
   },
+  {
+    id: "gerador-cron",
+    name: "Gerador de Cron Jobs",
+    path: "/gerador-cron",
+    icon: <Calendar className="h-4 w-4" />,
+    description: "Crie expressões cron para agendamento de tarefas em JavaScript.",
+  },
 ]
 
 export function getToolById(id: string): Tool | undefined {
